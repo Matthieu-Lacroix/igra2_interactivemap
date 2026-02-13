@@ -11,7 +11,7 @@ Go to Settings → Pages
 Source: Deploy from a branch
 Branch: main / root
 Save
-Access your map at [https://your-username.github.io/your-repo-name/](https://matthieu-lacroix.github.io/igra2_interactivemap/)
+Access your map at [https://matthieu-lacroix.github.io/igra2_interactivemap/](https://matthieu-lacroix.github.io/igra2_interactivemap/)
 The map will automatically load the data from igra2-station-list.txt!
 Option 2: Local Server
 bash
