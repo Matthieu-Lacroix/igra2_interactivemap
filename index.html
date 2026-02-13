@@ -7,227 +7,51 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            overflow: hidden;
-        }
-
-        .header {
-            background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%);
-            color: white;
-            padding: 30px;
-            text-align: center;
-        }
-
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .header p {
-            font-size: 1.1em;
-            opacity: 0.9;
-        }
-
-        .source-link {
-            display: inline-block;
-            margin-top: 15px;
-            color: #FFD700;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .source-link:hover {
-            color: #fff;
-            text-shadow: 0 0 10px rgba(255,215,0,0.5);
-        }
-
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-
-        .stat-item {
-            background: rgba(255,255,255,0.2);
-            padding: 15px 25px;
-            border-radius: 10px;
-            backdrop-filter: blur(10px);
-        }
-
-        .stat-value {
-            font-size: 1.8em;
-            font-weight: bold;
-        }
-
-        .stat-label {
-            font-size: 0.9em;
-            opacity: 0.8;
-        }
-
-        #map {
-            height: 600px;
-            width: 100%;
-        }
-
-        .file-input-container {
-            padding: 20px;
-            background: #f8f9fa;
-            border-bottom: 1px solid #e0e0e0;
-            text-align: center;
-        }
-
-        .file-input-wrapper {
-            display: inline-flex;
-            align-items: center;
-            gap: 15px;
-            background: white;
-            padding: 15px 25px;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .file-input-wrapper label {
-            font-weight: 600;
-            color: #333;
-        }
-
-        input[type="file"] {
-            padding: 8px 12px;
-            border: 2px dashed #2a5298;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        input[type="file"]:hover {
-            background: #f0f4ff;
-            border-color: #1e3c72;
-        }
-
-        .status-message {
-            margin-top: 10px;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: 500;
-            display: none;
-        }
-
-        .status-success {
-            background: #d4edda;
-            color: #155724;
-            display: inline-block;
-        }
-
-        .status-error {
-            background: #f8d7da;
-            color: #721c24;
-            display: inline-block;
-        }
-
-        .status-info {
-            background: #d1ecf1;
-            color: #0c5460;
-            display: inline-block;
-        }
-
-        .leaflet-popup-content-wrapper {
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-        }
-
-        .leaflet-popup-content {
-            margin: 15px;
-            font-family: 'Segoe UI', sans-serif;
-            min-width: 250px;
-        }
-
-        .popup-title {
-            font-size: 1.3em;
-            font-weight: bold;
-            color: #2a5298;
-            margin-bottom: 10px;
-            border-bottom: 2px solid #e0e0e0;
-            padding-bottom: 8px;
-        }
-
-        .popup-info {
-            display: grid;
-            gap: 8px;
-        }
-
-        .popup-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 5px 0;
-        }
-
-        .popup-label {
-            color: #666;
-            font-size: 0.9em;
-        }
-
-        .popup-value {
-            font-weight: 600;
-            color: #333;
-        }
-
-        .popup-id {
-            background: #2a5298;
-            color: white;
-            padding: 4px 10px;
-            border-radius: 15px;
-            font-size: 0.85em;
-            font-family: monospace;
-        }
-
-        .legend {
-            background: white;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            line-height: 1.8;
-        }
-
-        .legend-title {
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #333;
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .legend-color {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 1600px; margin: 0 auto; background: white; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); overflow: hidden; }
+        .header { background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%); color: white; padding: 30px; text-align: center; }
+        .header h1 { font-size: 2.5em; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .source-link { display: inline-block; margin-top: 15px; color: #FFD700; text-decoration: none; font-weight: 600; transition: all 0.3s ease; }
+        .source-link:hover { color: #fff; text-shadow: 0 0 10px rgba(255,215,0,0.5); }
+        .stats { display: flex; justify-content: center; gap: 40px; margin-top: 20px; flex-wrap: wrap; }
+        .stat-item { background: rgba(255,255,255,0.2); padding: 15px 25px; border-radius: 10px; backdrop-filter: blur(10px); }
+        .stat-value { font-size: 1.8em; font-weight: bold; }
+        .main-content { display: flex; height: 700px; }
+        .sidebar { width: 350px; background: #f8f9fa; border-right: 1px solid #e0e0e0; padding: 20px; overflow-y: auto; }
+        .sidebar h2 { color: #1e3c72; margin-bottom: 20px; font-size: 1.3em; border-bottom: 2px solid #2a5298; padding-bottom: 10px; }
+        .filter-section { margin-bottom: 25px; background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .data-status { padding: 15px; border-radius: 8px; margin-bottom: 15px; font-size: 0.9em; border-left: 4px solid; }
+        .data-status.success { background: #d4edda; color: #155724; border-color: #28a745; }
+        .data-status.error { background: #f8d7da; color: #721c24; border-color: #dc3545; }
+        .data-status.loading { background: #fff3cd; color: #856404; border-color: #ffc107; }
+        .data-status.info { background: #d1ecf1; color: #0c5460; border-color: #17a2b8; }
+        .range-inputs { display: flex; gap: 10px; align-items: center; margin-bottom: 8px; }
+        .range-inputs input { width: 80px; padding: 8px; border: 1px solid #ddd; border-radius: 6px; font-size: 0.9em; }
+        .search-box { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 0.9em; margin-bottom: 10px; }
+        .checkbox-group { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; max-height: 200px; overflow-y: auto; }
+        .checkbox-item { display: flex; align-items: center; gap: 6px; font-size: 0.9em; cursor: pointer; padding: 5px; border-radius: 6px; transition: background 0.2s; }
+        .checkbox-item:hover { background: #f0f4ff; }
+        .button-group { display: flex; gap: 10px; margin-top: 15px; }
+        .btn { flex: 1; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9em; transition: all 0.3s ease; }
+        .btn-primary { background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%); color: white; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(42, 82, 152, 0.4); }
+        .btn-secondary { background: #e0e0e0; color: #333; }
+        #map { flex: 1; height: 100%; }
+        .legend { background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); line-height: 1.8; }
+        .legend-title { font-weight: bold; margin-bottom: 10px; color: #333; }
+        .legend-item { display: flex; align-items: center; gap: 10px; }
+        .legend-color { width: 20px; height: 20px; border-radius: 50%; }
+        .popup-title { font-size: 1.3em; font-weight: bold; color: #2a5298; margin-bottom: 10px; border-bottom: 2px solid #e0e0e0; padding-bottom: 8px; }
+        .popup-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; }
+        .popup-label { color: #666; font-size: 0.9em; }
+        .popup-value { font-weight: 600; color: #333; }
+        .popup-id { background: #2a5298; color: white; padding: 4px 10px; border-radius: 15px; font-size: 0.85em; font-family: monospace; }
+        .country-badge { display: inline-block; padding: 2px 8px; background: #2a5298; color: white; border-radius: 12px; font-size: 0.75em; font-weight: 600; margin-left: 8px; }
+        input[type="file"] { width: 100%; padding: 10px; border: 2px dashed #2a5298; border-radius: 8px; cursor: pointer; margin-top: 10px; font-size: 0.9em; }
+        input[type="file"]:hover { background: #f0f4ff; }
+        .github-info { background: #f8f9fa; padding: 10px; border-radius: 6px; font-size: 0.85em; color: #666; margin-top: 10px; }
+        .github-info code { background: #e9ecef; padding: 2px 6px; border-radius: 4px; font-family: monospace; }
     </style>
 <base target="_blank">
 </head>
@@ -236,125 +60,161 @@
         <div class="header">
             <h1>🌍 IGRA2 Weather Stations</h1>
             <p>Interactive map of global radiosonde stations</p>
-            <a href="https://www.ncei.noaa.gov/products/weather-balloon/integrated-global-radiosonde-archive" 
-               target="_blank" 
-               class="source-link">
-               📊 Data Source: NOAA NCEI IGRA
-            </a>
+            <a href="https://www.ncei.noaa.gov/products/weather-balloon/integrated-global-radiosonde-archive" target="_blank" class="source-link">📊 Data Source: NOAA NCEI IGRA</a>
             <div class="stats">
-                <div class="stat-item">
-                    <div class="stat-value" id="total-stations">-</div>
-                    <div class="stat-label">Stations</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value" id="year-range">-</div>
-                    <div class="stat-label">Period</div>
-                </div>
+                <div class="stat-item"><div class="stat-value" id="total-stations">-</div><div class="stat-label">Total Stations</div></div>
+                <div class="stat-item"><div class="stat-value" id="filtered-stations">-</div><div class="stat-label">Filtered</div></div>
+                <div class="stat-item"><div class="stat-value" id="year-range">-</div><div class="stat-label">Period</div></div>
             </div>
         </div>
+        <div class="main-content">
+            <div class="sidebar">
+                <h2>🔧 Filters & Controls</h2>
 
-        <div class="file-input-container">
-            <div class="file-input-wrapper">
-                <label for="file-input">📁 Load station file:</label>
-                <input type="file" id="file-input" accept=".txt" />
+                <div class="filter-section">
+                    <div id="data-status" class="data-status loading">
+                        ⏳ Loading data...
+                    </div>
+                    <input type="file" id="file-input" accept=".txt" />
+                    <div class="github-info">
+                        💡 <strong>GitHub Pages:</strong> Place <code>igra2-station-list.txt</code> in the same repository
+                    </div>
+                </div>
+
+                <div class="filter-section">
+                    <h3>🔍 Search</h3>
+                    <input type="text" id="search-input" class="search-box" placeholder="Station name, ID or country...">
+                </div>
+
+                <div class="filter-section">
+                    <h3>📅 Year Range</h3>
+                    <div class="range-inputs">
+                        <input type="number" id="year-min" placeholder="From" min="1900" max="2100">
+                        <span>to</span>
+                        <input type="number" id="year-max" placeholder="To" min="1900" max="2100">
+                    </div>
+                </div>
+
+                <div class="filter-section">
+                    <h3>⛰️ Altitude (m)</h3>
+                    <div class="range-inputs">
+                        <input type="number" id="alt-min" placeholder="Min" min="0" max="10000">
+                        <span>to</span>
+                        <input type="number" id="alt-max" placeholder="Max" min="0" max="10000">
+                    </div>
+                </div>
+
+                <div class="filter-section">
+                    <h3>🌍 Countries</h3>
+                    <div class="checkbox-group" id="country-filters"></div>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-primary" onclick="applyFilters()">Apply Filters</button>
+                    <button class="btn btn-secondary" onclick="resetFilters()">Reset</button>
+                </div>
             </div>
-            <div id="status-message" class="status-message"></div>
+            <div id="map"></div>
         </div>
-
-        <div id="map"></div>
     </div>
 
     <script>
-        // Sample data (used as fallback if no file is loaded)
+        // Sample data for demonstration
         const sampleStations = [
-            {"id":"ACM00078861","lat":17.117,"lon":-61.783,"altitude":10,"name":"COOLIDGE FIELD (UA)","start_year":1947,"end_year":1993,"count":13896},
-            {"id":"AEM00041217","lat":24.4333,"lon":54.65,"altitude":16,"name":"ABU DHABI INTERNATIONAL AIRPOR","start_year":1983,"end_year":2026,"count":41221},
-            {"id":"AEXUAE05467","lat":25.25,"lon":55.37,"altitude":4,"name":"SHARJAH","start_year":1935,"end_year":1942,"count":2477},
-            {"id":"AFM00040911","lat":36.7,"lon":67.2,"altitude":378,"name":"MAZAR-I-SHARIF","start_year":2010,"end_year":2014,"count":2179},
-            {"id":"AFM00040913","lat":36.6667,"lon":68.9167,"altitude":433,"name":"KUNDUZ","start_year":2010,"end_year":2013,"count":4540},
-            {"id":"AFM00040938","lat":34.217,"lon":62.217,"altitude":977,"name":"HERAT","start_year":1978,"end_year":1988,"count":1107},
-            {"id":"AFM00040948","lat":34.55,"lon":69.2167,"altitude":1791,"name":"KABUL AIRPORT","start_year":1961,"end_year":2021,"count":19346},
-            {"id":"AFM00040990","lat":31.5,"lon":65.85,"altitude":1010,"name":"KANDAHAR AIRPORT","start_year":1976,"end_year":2014,"count":5934},
-            {"id":"AGM00060355","lat":36.883,"lon":6.9,"altitude":3,"name":"SKIKDA","start_year":1974,"end_year":1976,"count":639},
-            {"id":"AGM00060360","lat":36.833,"lon":7.817,"altitude":4,"name":"ANNABA","start_year":1973,"end_year":2008,"count":30090}
+            {"id":"ACM00078861","lat":17.117,"lon":-61.783,"altitude":10,"name":"COOLIDGE FIELD (UA)","start_year":1947,"end_year":1993,"count":13896,"country":"Antigua and Barbuda"},
+            {"id":"AEM00041217","lat":24.4333,"lon":54.65,"altitude":16,"name":"ABU DHABI INTERNATIONAL AIRPOR","start_year":1983,"end_year":2026,"count":41221,"country":"United Arab Emirates"},
+            {"id":"AEXUAE05467","lat":25.25,"lon":55.37,"altitude":4,"name":"SHARJAH","start_year":1935,"end_year":1942,"count":2477,"country":"United Arab Emirates"},
+            {"id":"AFM00040911","lat":36.7,"lon":67.2,"altitude":378,"name":"MAZAR-I-SHARIF","start_year":2010,"end_year":2014,"count":2179,"country":"Afghanistan"},
+            {"id":"AFM00040913","lat":36.6667,"lon":68.9167,"altitude":433,"name":"KUNDUZ","start_year":2010,"end_year":2013,"count":4540,"country":"Afghanistan"},
+            {"id":"AFM00040938","lat":34.217,"lon":62.217,"altitude":977,"name":"HERAT","start_year":1978,"end_year":1988,"count":1107,"country":"Afghanistan"},
+            {"id":"AFM00040948","lat":34.55,"lon":69.2167,"altitude":1791,"name":"KABUL AIRPORT","start_year":1961,"end_year":2021,"count":19346,"country":"Afghanistan"},
+            {"id":"AFM00040990","lat":31.5,"lon":65.85,"altitude":1010,"name":"KANDAHAR AIRPORT","start_year":1976,"end_year":2014,"count":5934,"country":"Afghanistan"},
+            {"id":"AGM00060355","lat":36.883,"lon":6.9,"altitude":3,"name":"SKIKDA","start_year":1974,"end_year":1976,"count":639,"country":"Algeria"},
+            {"id":"AGM00060360","lat":36.833,"lon":7.817,"altitude":4,"name":"ANNABA","start_year":1973,"end_year":2008,"count":30090,"country":"Algeria"}
         ];
 
-        let map;
-        let markers = [];
-        let currentStations = [];
+        let map, markers = [], allStations = [];
+        const countryMap = {
+            'AC': 'Antigua and Barbuda', 'AE': 'United Arab Emirates', 'AF': 'Afghanistan', 'AG': 'Algeria',
+            'AY': 'Antarctica', 'AZ': 'Azerbaijan', 'BA': 'Bahrain', 'BB': 'Barbados', 'BC': 'Botswana',
+            'BD': 'Bangladesh', 'BE': 'Belgium', 'BF': 'Bahamas', 'BG': 'Bulgaria', 'BH': 'Belize',
+            'BK': 'Bosnia and Herzegovina', 'BL': 'Bolivia', 'BM': 'Myanmar', 'BN': 'Bahrain',
+            'BO': 'Belarus', 'BP': 'Solomon Islands', 'BR': 'Brazil', 'BU': 'Bulgaria', 'BX': 'Brunei',
+            'CA': 'Canada', 'CB': 'Cambodia', 'CE': 'Sri Lanka', 'CH': 'China', 'CI': 'Chile',
+            'CM': 'Cameroon', 'CO': 'Colombia', 'CS': 'Costa Rica', 'CT': 'Central African Republic',
+            'CU': 'Cuba', 'CV': 'Cape Verde', 'CY': 'Cyprus', 'CZ': 'Czech Republic', 'DA': 'Denmark',
+            'DJ': 'Djibouti', 'DO': 'Dominican Republic', 'DR': 'Dominican Republic', 'EC': 'Ecuador',
+            'EG': 'Egypt', 'EI': 'Ireland', 'EK': 'Equatorial Guinea', 'EN': 'Estonia', 'ER': 'Eritrea',
+            'ES': 'El Salvador', 'ET': 'Ethiopia', 'EZ': 'Czech Republic', 'FI': 'Finland', 'FJ': 'Fiji',
+            'FK': 'Falkland Islands', 'FM': 'Micronesia', 'FR': 'France', 'GA': 'Gambia',
+            'GB': 'United Kingdom', 'GC': 'Germany', 'GE': 'Georgia', 'GH': 'Ghana', 'GI': 'Gibraltar',
+            'GL': 'Greenland', 'GM': 'Germany', 'GP': 'Guadeloupe', 'GQ': 'Guam', 'GR': 'Greece',
+            'GT': 'Guatemala', 'GU': 'Guam', 'GY': 'Guyana', 'HK': 'Hong Kong', 'HO': 'Honduras',
+            'HR': 'Croatia', 'HU': 'Hungary', 'IC': 'Iceland', 'ID': 'Indonesia', 'IN': 'India',
+            'IO': 'British Indian Ocean Territory', 'IR': 'Iran', 'IS': 'Israel', 'IT': 'Italy',
+            'IV': 'Cote dIvoire', 'IZ': 'Iraq', 'JA': 'Japan', 'JM': 'Jamaica', 'JO': 'Jordan',
+            'KE': 'Kenya', 'KG': 'Kyrgyzstan', 'KN': 'North Korea', 'KS': 'South Korea',
+            'KT': 'Christmas Island', 'KU': 'Kuwait', 'KZ': 'Kazakhstan', 'LA': 'Laos', 'LE': 'Lebanon',
+            'LG': 'Latvia', 'LH': 'Lithuania', 'LI': 'Liberia', 'LO': 'Slovakia', 'LT': 'Lesotho',
+            'LU': 'Luxembourg', 'LY': 'Libya', 'MA': 'Morocco', 'MB': 'Martinique', 'MC': 'Macau',
+            'MD': 'Moldova', 'MF': 'Mayotte', 'MG': 'Mongolia', 'MI': 'Malawi', 'MJ': 'Montenegro',
+            'MK': 'Macedonia', 'ML': 'Mali', 'MM': 'Myanmar', 'MN': 'Monaco', 'MO': 'Macau',
+            'MP': 'Northern Mariana Islands', 'MR': 'Mauritania', 'MT': 'Malta', 'MU': 'Oman',
+            'MV': 'Maldives', 'MX': 'Mexico', 'MY': 'Malaysia', 'MZ': 'Mozambique', 'NC': 'New Caledonia',
+            'NE': 'Niue', 'NF': 'Norfolk Island', 'NG': 'Niger', 'NI': 'Nigeria', 'NL': 'Netherlands',
+            'NO': 'Norway', 'NP': 'Nepal', 'NR': 'Nauru', 'NS': 'Suriname', 'NU': 'Nicaragua',
+            'NZ': 'New Zealand', 'PA': 'Paraguay', 'PB': 'Palau', 'PC': 'Pitcairn Islands',
+            'PE': 'Peru', 'PF': 'French Polynesia', 'PG': 'Papua New Guinea', 'PH': 'Philippines',
+            'PK': 'Pakistan', 'PL': 'Poland', 'PM': 'Panama', 'PO': 'Portugal', 'PP': 'Papua New Guinea',
+            'PS': 'Palestine', 'PT': 'Portugal', 'PU': 'Guinea-Bissau', 'QA': 'Qatar', 'RE': 'Reunion',
+            'RI': 'Serbia', 'RM': 'Marshall Islands', 'RO': 'Romania', 'RP': 'Philippines',
+            'RQ': 'Puerto Rico', 'RS': 'Russia', 'RW': 'Rwanda', 'SA': 'Saudi Arabia',
+            'SB': 'Saint Pierre and Miquelon', 'SC': 'Saint Kitts and Nevis', 'SE': 'Seychelles',
+            'SF': 'South Africa', 'SG': 'Senegal', 'SH': 'Saint Helena', 'SI': 'Slovenia',
+            'SK': 'Sikkim', 'SL': 'Sierra Leone', 'SM': 'San Marino', 'SN': 'Singapore',
+            'SO': 'Somalia', 'SP': 'Spain', 'SR': 'Serbia', 'SS': 'South Sudan', 'ST': 'Saint Lucia',
+            'SU': 'Sudan', 'SV': 'Svalbard and Jan Mayen', 'SW': 'Sweden',
+            'SX': 'South Georgia and South Sandwich Islands', 'SY': 'Syria', 'SZ': 'Switzerland',
+            'TD': 'Trinidad and Tobago', 'TE': 'Tromelin Island', 'TH': 'Thailand', 'TI': 'Tajikistan',
+            'TK': 'Turks and Caicos Islands', 'TL': 'Tokelau', 'TN': 'Tonga', 'TO': 'Togo',
+            'TP': 'Sao Tome and Principe', 'TS': 'Tunisia', 'TT': 'Timor-Leste', 'TU': 'Turkey',
+            'TV': 'Tuvalu', 'TW': 'Taiwan', 'TX': 'Turkmenistan', 'TZ': 'Tanzania', 'UA': 'Ukraine',
+            'UG': 'Uganda', 'UK': 'United Kingdom', 'UM': 'United States Minor Outlying Islands',
+            'US': 'United States', 'UV': 'Burkina Faso', 'UY': 'Uruguay', 'UZ': 'Uzbekistan',
+            'VC': 'Saint Vincent and the Grenadines', 'VE': 'Venezuela', 'VI': 'British Virgin Islands',
+            'VM': 'Vietnam', 'VQ': 'Virgin Islands', 'VT': 'Vatican City', 'WA': 'Namibia',
+            'WE': 'West Bank', 'WF': 'Wallis and Futuna', 'WI': 'Western Sahara', 'WS': 'Samoa',
+            'WZ': 'Swaziland', 'YM': 'Yemen', 'ZA': 'Zambia', 'ZI': 'Zimbabwe'
+        };
 
-        // Initialize map
+        function updateStatus(msg, type) {
+            const el = document.getElementById('data-status');
+            el.innerHTML = msg;
+            el.className = 'data-status ' + type;
+        }
+
         function initMap() {
             map = L.map('map').setView([20, 0], 2);
-
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
                 maxZoom: 18
             }).addTo(map);
 
-            // Add legend
             const legend = L.control({position: 'bottomright'});
-            legend.onAdd = function(map) {
+            legend.onAdd = function() {
                 const div = L.DomUtil.create('div', 'legend');
-                div.innerHTML = `
-                    <div class="legend-title">Altitude (m)</div>
-                    <div class="legend-item">
-                        <div class="legend-color" style="background: #06FFA5;"></div>
-                        <span>0 - 100m</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color" style="background: #FFD23F;"></div>
-                        <span>100 - 500m</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color" style="background: #F7931E;"></div>
-                        <span>500 - 1000m</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color" style="background: #FF6B35;"></div>
-                        <span>1000 - 2000m</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color" style="background: #8B0000;"></div>
-                        <span>> 2000m</span>
-                    </div>
-                `;
+                div.innerHTML = '<div class="legend-title">Altitude (m)</div>' +
+                    '<div class="legend-item"><div class="legend-color" style="background: #06FFA5;"></div><span>0-100m</span></div>' +
+                    '<div class="legend-item"><div class="legend-color" style="background: #FFD23F;"></div><span>100-500m</span></div>' +
+                    '<div class="legend-item"><div class="legend-color" style="background: #F7931E;"></div><span>500-1000m</span></div>' +
+                    '<div class="legend-item"><div class="legend-color" style="background: #FF6B35;"></div><span>1000-2000m</span></div>' +
+                    '<div class="legend-item"><div class="legend-color" style="background: #8B0000;"></div><span>>2000m</span></div>';
                 return div;
             };
             legend.addTo(map);
         }
 
-        // Parse station data from text
-        function parseStations(text) {
-            const stations = [];
-            const lines = text.trim().split('\n');
-
-            for (const line of lines) {
-                const trimmed = line.trim();
-                if (!trimmed) continue;
-
-                // Regex to parse: ID lat lon alt name start end count
-                const match = trimmed.match(/^(\S+)\s+([\-\d\.]+)\s+([\-\d\.]+)\s+([\d\.]+)\s+(.+?)\s+(\d{4})\s+(\d{4})\s+(\d+)$/);
-
-                if (match) {
-                    stations.push({
-                        id: match[1],
-                        lat: parseFloat(match[2]),
-                        lon: parseFloat(match[3]),
-                        altitude: parseFloat(match[4]),
-                        name: match[5].trim(),
-                        start_year: parseInt(match[6]),
-                        end_year: parseInt(match[7]),
-                        count: parseInt(match[8])
-                    });
-                }
-            }
-
-            return stations;
-        }
-
-        // Get color based on altitude
-        function getAltitudeColor(alt) {
+        function getColor(alt) {
             if (alt > 2000) return '#8B0000';
             if (alt > 1000) return '#FF6B35';
             if (alt > 500) return '#F7931E';
@@ -362,148 +222,183 @@
             return '#06FFA5';
         }
 
-        // Display stations on map
         function displayStations(stations) {
-            // Clear existing markers
-            markers.forEach(marker => map.removeLayer(marker));
+            markers.forEach(m => map.removeLayer(m));
             markers = [];
 
-            currentStations = stations;
+            document.getElementById('total-stations').textContent = allStations.length;
+            document.getElementById('filtered-stations').textContent = stations.length;
 
-            // Update stats
-            document.getElementById('total-stations').textContent = stations.length;
+            let minYear = 9999, maxYear = 0;
+            allStations.forEach(s => {
+                if (s.start_year < minYear) minYear = s.start_year;
+                if (s.end_year > maxYear) maxYear = s.end_year;
+            });
+            document.getElementById('year-range').textContent = minYear + ' - ' + maxYear;
 
-            const allYears = stations.flatMap(s => [s.start_year, s.end_year]);
-            const minYear = Math.min(...allYears);
-            const maxYear = Math.max(...allYears);
-            document.getElementById('year-range').textContent = `${minYear} - ${maxYear}`;
-
-            // Add markers
             stations.forEach(station => {
-                const color = getAltitudeColor(station.altitude);
-
                 const marker = L.circleMarker([station.lat, station.lon], {
-                    radius: 8,
-                    fillColor: color,
-                    color: '#fff',
-                    weight: 2,
-                    opacity: 1,
-                    fillOpacity: 0.8
+                    radius: 8, fillColor: getColor(station.altitude), color: '#fff', weight: 2, fillOpacity: 0.8
                 }).addTo(map);
 
-                const popupContent = `
-                    <div class="popup-title">${station.name}</div>
-                    <div class="popup-info">
-                        <div class="popup-row">
-                            <span class="popup-label">Station ID:</span>
-                            <span class="popup-id">${station.id}</span>
-                        </div>
-                        <div class="popup-row">
-                            <span class="popup-label">Coordinates:</span>
-                            <span class="popup-value">${station.lat.toFixed(4)}, ${station.lon.toFixed(4)}</span>
-                        </div>
-                        <div class="popup-row">
-                            <span class="popup-label">Altitude:</span>
-                            <span class="popup-value">${station.altitude} m</span>
-                        </div>
-                        <div class="popup-row">
-                            <span class="popup-label">Period:</span>
-                            <span class="popup-value">${station.start_year} - ${station.end_year}</span>
-                        </div>
-                        <div class="popup-row">
-                            <span class="popup-label">Measurements:</span>
-                            <span class="popup-value">${station.count.toLocaleString()}</span>
-                        </div>
-                    </div>
-                `;
+                marker.bindPopup('<div class="popup-title">' + station.name + '</div>' +
+                    '<div class="popup-row"><span class="popup-label">ID:</span><span class="popup-id">' + station.id + '</span></div>' +
+                    '<div class="popup-row"><span class="popup-label">Country:</span><span class="popup-value">' + station.country + '</span></div>' +
+                    '<div class="popup-row"><span class="popup-label">Coords:</span><span class="popup-value">' + station.lat.toFixed(4) + ', ' + station.lon.toFixed(4) + '</span></div>' +
+                    '<div class="popup-row"><span class="popup-label">Altitude:</span><span class="popup-value">' + station.altitude + 'm</span></div>' +
+                    '<div class="popup-row"><span class="popup-label">Period:</span><span class="popup-value">' + station.start_year + '-' + station.end_year + '</span></div>' +
+                    '<div class="popup-row"><span class="popup-label">Measurements:</span><span class="popup-value">' + station.count.toLocaleString() + '</span></div>');
 
-                marker.bindPopup(popupContent);
                 markers.push(marker);
             });
 
-            // Fit bounds if we have markers
             if (markers.length > 0) {
                 const group = new L.featureGroup(markers);
                 map.fitBounds(group.getBounds().pad(0.1));
             }
         }
 
-        // Show status message
-        function showStatus(message, type) {
-            const statusEl = document.getElementById('status-message');
-            statusEl.textContent = message;
-            statusEl.className = `status-message status-${type}`;
-            statusEl.style.display = 'inline-block';
-
-            setTimeout(() => {
-                statusEl.style.display = 'none';
-            }, 5000);
+        function populateCountries() {
+            const countries = [...new Set(allStations.map(s => s.country))].sort();
+            const container = document.getElementById('country-filters');
+            container.innerHTML = '';
+            countries.forEach(country => {
+                const count = allStations.filter(s => s.country === country).length;
+                const div = document.createElement('div');
+                div.className = 'checkbox-item';
+                div.innerHTML = '<input type="checkbox" id="c-' + country.replace(/\s/g, '-') + '" value="' + country + '" checked onchange="applyFilters()">' +
+                    '<label for="c-' + country.replace(/\s/g, '-') + '">' + country + ' <span class="country-badge">' + count + '</span></label>';
+                container.appendChild(div);
+            });
         }
 
-        // Handle file upload
-        function handleFileUpload(event) {
-            const file = event.target.files[0];
-            if (!file) return;
+        function applyFilters() {
+            let filtered = allStations.slice();
 
+            const search = document.getElementById('search-input').value.toLowerCase();
+            if (search) filtered = filtered.filter(s => s.name.toLowerCase().includes(search) || s.id.toLowerCase().includes(search) || s.country.toLowerCase().includes(search));
+
+            const ymin = parseInt(document.getElementById('year-min').value) || 1900;
+            const ymax = parseInt(document.getElementById('year-max').value) || 2100;
+            filtered = filtered.filter(s => s.start_year >= ymin && s.end_year <= ymax);
+
+            const amin = parseInt(document.getElementById('alt-min').value) || 0;
+            const amax = parseInt(document.getElementById('alt-max').value) || 10000;
+            filtered = filtered.filter(s => s.altitude >= amin && s.altitude <= amax);
+
+            const checked = Array.from(document.querySelectorAll('#country-filters input:checked')).map(cb => cb.value);
+            filtered = filtered.filter(s => checked.includes(s.country));
+
+            displayStations(filtered);
+        }
+
+        function resetFilters() {
+            document.getElementById('search-input').value = '';
+            document.getElementById('year-min').value = '';
+            document.getElementById('year-max').value = '';
+            document.getElementById('alt-min').value = '';
+            document.getElementById('alt-max').value = '';
+            document.querySelectorAll('#country-filters input').forEach(cb => cb.checked = true);
+            displayStations(allStations);
+        }
+
+        function parseStations(text) {
+            const stations = [];
+            text.split('\n').forEach(line => {
+                line = line.trim();
+                if (!line) return;
+                const match = line.match(/^(\S+)\s+([\-\d\.]+)\s+([\-\d\.]+)\s+([\d\.]+)\s+(.+?)\s+(\d{4})\s+(\d{4})\s+(\d+)$/);
+                if (match) {
+                    const code = match[1].substring(0, 2).toUpperCase();
+                    stations.push({
+                        id: match[1], lat: parseFloat(match[2]), lon: parseFloat(match[3]),
+                        altitude: parseFloat(match[4]), name: match[5].trim(),
+                        start_year: parseInt(match[6]), end_year: parseInt(match[7]),
+                        count: parseInt(match[8]), country: countryMap[code] || code
+                    });
+                }
+            });
+            return stations;
+        }
+
+        function loadFile(file) {
             const reader = new FileReader();
-
-            reader.onload = function(e) {
-                try {
-                    const text = e.target.result;
-                    const stations = parseStations(text);
-
-                    if (stations.length === 0) {
-                        showStatus('⚠️ No valid stations found in file. Using sample data.', 'error');
-                        displayStations(sampleStations);
-                        return;
-                    }
-
-                    displayStations(stations);
-                    showStatus(`✓ Loaded ${stations.length} stations from "${file.name}"`, 'success');
-                } catch (error) {
-                    showStatus('❌ Error parsing file: ' + error.message, 'error');
-                    console.error(error);
+            reader.onload = e => {
+                const stations = parseStations(e.target.result);
+                if (stations.length > 0) {
+                    allStations = stations;
+                    populateCountries();
+                    displayStations(allStations);
+                    updateStatus('✅ Loaded ' + stations.length + ' stations from "' + file.name + '"', 'success');
+                } else {
+                    updateStatus('❌ No valid stations found in file', 'error');
                 }
             };
-
-            reader.onerror = function() {
-                showStatus('❌ Error reading file', 'error');
-            };
-
             reader.readAsText(file);
         }
 
-        // Also try to auto-load from local file if it exists
-        async function tryLoadLocalFile() {
-            try {
-                const response = await fetch('igra2-station-list.txt');
-                if (response.ok) {
-                    const text = await response.text();
+        function tryLoadFromURL(url, description) {
+            return fetch(url)
+                .then(r => {
+                    if (!r.ok) throw new Error('HTTP ' + r.status);
+                    return r.text();
+                })
+                .then(text => {
                     const stations = parseStations(text);
                     if (stations.length > 0) {
-                        displayStations(stations);
-                        showStatus(`✓ Auto-loaded ${stations.length} stations from "igra2-station-list.txt"`, 'success');
-                        return;
+                        allStations = stations;
+                        populateCountries();
+                        displayStations(allStations);
+                        updateStatus('✅ Loaded ' + stations.length + ' stations from ' + description, 'success');
+                        return true;
                     }
-                }
-            } catch (e) {
-                // File not found or CORS issue, use sample data
-            }
-
-            // Use sample data as fallback
-            displayStations(sampleStations);
-            showStatus('ℹ️ Using sample data. Place "igra2-station-list.txt" next to this HTML file or use the upload button.', 'info');
+                    throw new Error('No stations parsed');
+                });
         }
 
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
+        function autoLoadData() {
+            updateStatus('⏳ Attempting to load igra2-station-list.txt...', 'loading');
+
+            // Essayer plusieurs chemins possibles
+            const paths = [
+                'igra2-station-list.txt',
+                './igra2-station-list.txt',
+                window.location.href.replace(/\/[^\/]*$/, '/') + 'igra2-station-list.txt'
+            ];
+
+            let index = 0;
+
+            function tryNext() {
+                if (index >= paths.length) {
+                    // Tous les chemins ont échoué, utiliser les données d'exemple
+                    allStations = sampleStations;
+                    populateCountries();
+                    displayStations(allStations);
+                    updateStatus(
+                        '⚠️ Using sample data (10 stations).<br><br>' +
+                        '<strong>For GitHub Pages:</strong><br>' +
+                        '1. Upload igra2-station-list.txt to your repo<br>' +
+                        '2. Refresh this page<br><br>' +
+                        'Or use the file upload button below.', 
+                        'error'
+                    );
+                    return;
+                }
+
+                const path = paths[index++];
+                tryLoadFromURL(path, path)
+                    .catch(() => tryNext());
+            }
+
+            tryNext();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
             initMap();
-
-            // Set up file input handler
-            document.getElementById('file-input').addEventListener('change', handleFileUpload);
-
-            // Try to load local file or use sample data
-            tryLoadLocalFile();
+            document.getElementById('file-input').addEventListener('change', e => {
+                if (e.target.files[0]) loadFile(e.target.files[0]);
+            });
+            autoLoadData();
         });
     </script>
 </body>
